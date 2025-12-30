@@ -1,0 +1,79 @@
+<span class="bg-warning span px-4 py-2 font-weight-bold">
+  {{ isinEDitMode ? "Update User" : "Add User" }}
+</span>
+
+<div class="row mt-3">
+  <div class="col-md-5 mt-3">
+    <div class="form-group mb-2">
+      <label for="fName">First Name</label>
+      <input (blur)="onFocus = true"  [ngClass]="{
+       'border-danger' : !fname.value && onFocus
+      }" type="text" class="form-control" #fname   />
+      <label for="lName">Last Name</label>
+      <input type="text" class="form-control" #lName  />
+      <label for="email">Email</label>
+      <input type="text" class="form-control" #email  />
+      <label for="contact">Contact</label>
+      <input type="text" class="form-control"  #contact />
+      <div class="mt-4">
+        <button
+          *ngIf="!isinEDitMode"
+          (click)="onAddStd()"
+          type="submit"
+          class="btn btn-block btn-success"
+        >
+          Add Student
+        </button>
+        <button  
+         (click)="onUpdate()"
+          *ngIf="isinEDitMode"
+          type="button"
+          class="btn btn-block btn-success"
+        >
+          Update Student
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="table-responsive" *ngIf="stdArr.length > 0 ; else noStd">
+      <table class="table-bordered mt-4">
+        <thead class="btn-warning">
+          <tr>
+            <th>Sr no.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th colspan="4" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr
+            *ngFor="let std of  stdArr ;let i=index  ; trackBy: trackByStdId"
+          >
+            <td>{{i+1}}</td>
+            <td class=" text-capitalize">{{std.fName}}</td>
+            <td class=" text-capitalize">{{std.lName}}</td>
+            <td>{{std.email}}</td>
+            <td>{{std.contact}}</td>
+            <td>
+              <button (click)="onEdit(std)" mat-mini-fab color="primary">
+                <mat-icon fontIcon="edit"></mat-icon>
+              </button>
+            </td>
+            <td>
+              <button  (click)="onRemove(std.stdId)" mat-mini-fab color="warn">
+                <mat-icon fontIcon="delete"></mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <ng-template #noStd>
+           <p class="alert alert-info">No Student Yet!!!</p>
+             </ng-template>
+  </div>
+</div>
