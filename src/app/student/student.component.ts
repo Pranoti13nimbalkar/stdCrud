@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StudentComponent implements OnInit {
   isinEDitMode: boolean =false
   editId!:string
-  onFocus:boolean=false
+ 
    @ViewChild('fname')fname!:ElementRef;
    @ViewChild('lName')lName!:ElementRef;
    @ViewChild('email')email!:ElementRef;
